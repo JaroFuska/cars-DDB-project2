@@ -8,14 +8,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Collectors;
 import sk.shanki.lp.AnswerSet;
-import sk.shanki.lp.solvers.ClingoSolver;
 import sk.shanki.lp.Literal;
+import sk.shanki.lp.solvers.ClingoSolver;
 
 /**
  *
  * @author shanki
  */
-public class ClingoExample {
+public class ResortsExample {
 
     public static void main(String[] args) throws IOException {
         String program = Files.lines(Paths.get("resorts.txt")).collect(Collectors.joining(System.lineSeparator()));
