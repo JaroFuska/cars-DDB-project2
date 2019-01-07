@@ -1,0 +1,386 @@
+
+
+% auto(ID, NAZOV)
+%   - info o aute
+
+
+% SUV
+auto(bmw_x5, "BMW X5").
+auto(bmw_x6, "BMW X6").
+auto(bmw_x3, "BMW X3").
+
+auto(dacia_duster, "Dacia Duster").
+
+auto(ford_kuga, "Ford Kuga").
+
+auto(kia_sorento, "KIA Sorento").
+
+auto(skoda_kodiaq, "Skoda Kodiaq").
+
+
+% Kompaktne SUV/Crossover
+auto(bmw_x1, "BMW X1").
+auto(bmw_x2, "BMW X2").
+
+auto(suzuki_vitara, "Suzuki Vitara").
+auto(suzuki_sx4_scross, "Suzuki SX4 S-Cross").
+
+auto(subaru_xv, "Subaru XV").
+
+% Sedan/Kombi
+auto(bmw_rad3, "BMW rady 3").
+auto(bmw_rad5, "BMW rady 5").
+auto(bmw_rad7, "BMW rady 7").
+
+auto(volkswagen_passat, "Volkswagen Passat").
+
+auto(toyta_auris, "Toyota Auris").
+
+auto(skoda_octavia, "Skoda Octavia").
+
+% Hatchback/Male auta
+auto(bmw_rad1, "BMW rady 1").
+
+auto(volkswagem_golf, "Volkswagen Golf").
+
+auto(toyota_yaris, "Toyota Yaris").
+
+auto(skoda_fabia, "Skoda Fabia").
+
+auto(suzuki_swift, "Suzuki Swift").
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% kategoria(ID).
+% kategorie aut
+
+
+kategoria(suv).
+kategoria(crossover).
+kategoria(sedan_combi).
+kategoria(hatchback).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% auto_kategoria(AUTO_ID, KATEGORIA_ID).
+% prislustnost auta ku kategorii
+
+auto_kategoria(bmw_x5, suv).
+auto_kategoria(bmw_x6, suv).
+auto_kategoria(bmw_x3, suv).
+auto_kategoria(dacia_duster, suv).
+auto_kategoria(ford_kuga, suv).
+auto_kategoria(kia_sorento, suv).
+auto_kategoria(skoda_kodiaq, suv).
+
+
+auto_kategoria(bmw_x1, crossover).
+auto_kategoria(bmw_x2, crossover).
+auto_kategoria(suzuki_vitara, crossover).
+auto_kategoria(suzuki_sx4_scross, crossover).
+auto_kategoria(subaru_xv, crossover).
+
+
+auto_kategoria(bmw_rad3, sedan_combi).
+auto_kategoria(bmw_rad5, sedan_combi).
+auto_kategoria(bmw_rad7, sedan_combi).
+auto_kategoria(volkswagen_passat, sedan_combi).
+auto_kategoria(toyta_auris, sedan_combi).
+auto_kategoria(skoda_octavia, sedan_combi).
+
+
+auto_kategoria(bmw_rad1, hatchback).
+auto_kategoria(volkswagem_golf, hatchback).
+auto_kategoria(toyota_yaris, hatchback).
+auto_kategoria(skoda_fabia, hatchback).
+auto_kategoria(suzuki_swift, hatchback).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% znacka(ID).
+% znacky aut
+
+znacka(bmw).
+znacka(dacia).
+znacka(ford).
+znacka(kia).
+znacka(suzuki).
+znacka(skoda).
+znacka(subaru).
+znacka(volkswagen).
+znacka(toyta).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% auto_znacka(AUTO_ID, ZNACKA_ID).
+% prislustnost auta ku znacke
+
+auto_znacka(bmw_x5, bmw).
+auto_znacka(bmw_x6, bmw).
+auto_znacka(bmw_x3, bmw).
+auto_znacka(bmw_x1, bmw).
+auto_znacka(bmw_x2, bmw).
+auto_znacka(bmw_rad3, bmw).
+auto_znacka(bmw_rad5, bmw).
+auto_znacka(bmw_rad7, bmw).
+auto_znacka(bmw_rad1, bmw).
+auto_znacka(dacia_duster, dacia).
+auto_znacka(ford_kuga, ford).
+auto_znacka(kia_sorento, kia).
+auto_znacka(suzuki_vitara, suzuki).
+auto_znacka(suzuki_sx4_scross, suzuki).
+auto_znacka(suzuki_swift, suzuki).
+auto_znacka(skoda_kodiaq, skoda).
+auto_znacka(skoda_octavia, skoda).
+auto_znacka(skoda_fabia, skoda).
+auto_znacka(subaru_xv, subaru).
+auto_znacka(volkswagen_passat, volkswagen).
+auto_znacka(volkswagem_golf, volkswagen).
+auto_znacka(toyta_auris, toyta).
+auto_znacka(toyota_yaris, toyta).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% palivo(ID, NAZOV).
+% druhy pohonnych paliv
+
+palivo(benzin, " s bezninovym motorom").
+palivo(diesel, " s dieslovym motorom").
+palivo(hybrid, " s hybridnym motorm").
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% auto_palivo(AUTO_ID, PALIVO_ID).
+% prislustnost auta ku palivu
+
+
+auto_palivo(bmw_x5, diesel).
+auto_palivo(bmw_x6, diesel).
+auto_palivo(bmw_x3, benzin).
+auto_palivo(bmw_x3, diesel).
+auto_palivo(bmw_x1, benzin).
+auto_palivo(bmw_x1, diesel).
+auto_palivo(bmw_x2, benzin).
+auto_palivo(bmw_x2, diesel).
+auto_palivo(bmw_rad3, benzin).
+auto_palivo(bmw_rad3, diesel).
+auto_palivo(bmw_rad5, benzin).
+auto_palivo(bmw_rad5, diesel).
+auto_palivo(bmw_rad7, benzin).
+auto_palivo(bmw_rad7, diesel).
+auto_palivo(bmw_rad1, benzin).
+auto_palivo(bmw_rad1, diesel).
+auto_palivo(dacia_duster, benzin).
+auto_palivo(dacia_duster, diesel).
+auto_palivo(ford_kuga, benzin).
+auto_palivo(ford_kuga, diesel).
+auto_palivo(kia_sorento, diesel).
+auto_palivo(suzuki_vitara, benzin).
+auto_palivo(suzuki_sx4_scross, benzin).
+auto_palivo(suzuki_swift, benzin).
+auto_palivo(skoda_kodiaq, benzin).
+auto_palivo(skoda_kodiaq, diesel).
+auto_palivo(skoda_octavia, benzin).
+auto_palivo(skoda_octavia, diesel).
+auto_palivo(skoda_fabia, benzin).
+auto_palivo(subaru_xv, benzin).
+auto_palivo(volkswagen_passat, benzin).
+auto_palivo(volkswagen_passat, diesel).
+auto_palivo(volkswagem_golf, benzin).
+auto_palivo(volkswagem_golf, diesel).
+auto_palivo(toyta_auris, benzin).
+auto_palivo(toyta_auris, diesel).
+auto_palivo(toyta_auris, hybrid).
+auto_palivo(toyota_yaris, benzin).
+auto_palivo(toyota_yaris, diesel).
+auto_palivo(toyota_yaris, hybrid).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% nahon(ID, NAZOV).
+% druhy nahonov naprav
+
+nahon(dva, " s pohonom 2WD").
+nahon(styri, " s pohonom 4x4").
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% auto_nahon(AUTO_ID, NAHON_ID).
+% prislustnost auta ku nahonu
+
+auto_nahon(bmw_x5, styri).
+auto_nahon(bmw_x6, styri).
+auto_nahon(bmw_x3, styri).
+auto_nahon(bmw_x1, dva).
+auto_nahon(bmw_x1, styri).
+auto_nahon(bmw_x2, dva).
+auto_nahon(bmw_x2, styri).
+auto_nahon(bmw_rad3, dva).
+auto_nahon(bmw_rad3, styri).
+auto_nahon(bmw_rad5, dva).
+auto_nahon(bmw_rad5, styri).
+auto_nahon(bmw_rad7, dva).
+auto_nahon(bmw_rad7, styri).
+auto_nahon(bmw_rad1, dva).
+auto_nahon(bmw_rad1, styri).
+auto_nahon(dacia_duster, dva).
+auto_nahon(dacia_duster, styri).
+auto_nahon(ford_kuga, dva).
+auto_nahon(ford_kuga, styri).
+auto_nahon(kia_sorento, dva).
+auto_nahon(kia_sorento, styri).
+auto_nahon(suzuki_vitara, dva).
+auto_nahon(suzuki_vitara, styri).
+auto_nahon(suzuki_sx4_scross, dva).
+auto_nahon(suzuki_sx4_scross, styri).
+auto_nahon(suzuki_swift, dva).
+auto_nahon(suzuki_swift, styri).
+auto_nahon(skoda_kodiaq, dva).
+auto_nahon(skoda_kodiaq, styri).
+auto_nahon(skoda_octavia, dva).
+auto_nahon(skoda_octavia, styri).
+auto_nahon(skoda_fabia, dva).
+auto_nahon(subaru_xv, dva).
+auto_nahon(subaru_xv, styri).
+auto_nahon(volkswagen_passat, dva).
+auto_nahon(volkswagen_passat, styri).
+auto_nahon(volkswagem_golf, dva).
+auto_nahon(volkswagem_golf, styri).
+auto_nahon(toyta_auris, dva).
+auto_nahon(toyta_auris, styri).
+auto_nahon(toyota_yaris, dva).
+auto_nahon(toyota_yaris, styri).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% cena(AUTO_ID, NAHON_ID, PALIVO_ID, CENA).
+% cena auta s konkretnymi nahonom a palivom
+
+cena(bmw_x5, styri, diesel, 69100).
+
+cena(bmw_x6, dva, diesel, 69500).
+cena(bmw_x6, styri, diesel, 73500).
+
+cena(bmw_x3, styri, benzin, 46700).
+cena(bmw_x3, styri, diesel, 43650).
+
+cena(bmw_x1, dva, benzin, 31050).
+cena(bmw_x1, dva, diesel, 32400).
+cena(bmw_x1, styri, benzin, 35200).
+cena(bmw_x1, styri, diesel, 35850).
+
+cena(bmw_x2, dva, benzin, 32550).
+cena(bmw_x2, dva, diesel, 35300).
+cena(bmw_x2, styri, benzin, 37500).
+cena(bmw_x2, styri, diesel, 38350).
+
+cena(bmw_rad3, dva, benzin, 43200).
+cena(bmw_rad3, dva, diesel, 39700).
+cena(bmw_rad3, styri, benzin, 48600).
+cena(bmw_rad3, styri, diesel, 44400).
+
+cena(bmw_rad5, dva, benzin, 48200).
+cena(bmw_rad5, dva, diesel, 45700).
+cena(bmw_rad5, styri, benzin, 52600).
+cena(bmw_rad5, styri, diesel, 51200).
+
+cena(bmw_rad7, dva, benzin, 58200).
+cena(bmw_rad7, dva, diesel, 55700).
+cena(bmw_rad7, styri, benzin, 62600).
+cena(bmw_rad7, styri, diesel, 62200).
+
+cena(bmw_rad1, dva, benzin, 24700).
+cena(bmw_rad1, dva, diesel, 25700).
+cena(bmw_rad1, styri, benzin, 47750).
+cena(bmw_rad1, styri, diesel, 30950).
+
+cena(dacia_duster, dva, benzin, 9990).
+cena(dacia_duster, dva, diesel, 13590).
+cena(dacia_duster, styri, benzin, 13290).
+cena(dacia_duster, styri, diesel, 16590).
+
+cena(ford_kuga, dva, benzin, 19890).
+cena(ford_kuga, dva, diesel, 23890).
+cena(ford_kuga, styri, benzin, 25480).
+cena(ford_kuga, styri, diesel, 24650).
+
+cena(kia_sorento, dva, diesel, 35390).
+cena(kia_sorento, styri, diesel, 37390).
+
+cena(suzuki_vitara, dva, benzin, 14790).
+cena(suzuki_vitara, styri, benzin, 18490).
+
+cena(suzuki_sx4_scross, dva, benzin, 15490).
+cena(suzuki_sx4_scross, styri, benzin, 18100).
+
+cena(suzuki_swift, dva, benzin, 9999).
+cena(suzuki_swift, styri, benzin, 12499).
+
+cena(skoda_kodiaq, dva, benzin, 23790).
+cena(skoda_kodiaq, dva, diesel, 28830).
+cena(skoda_kodiaq, styri, benzin, 31200).
+cena(skoda_kodiaq, styri, diesel, 29030).
+
+cena(skoda_octavia, dva, benzin, 17470).
+cena(skoda_octavia, dva, diesel, 19830).
+cena(skoda_octavia, styri, benzin, 35210).
+cena(skoda_octavia, styri, diesel, 32110).
+
+cena(skoda_fabia, dva, benzin, 9700).
+
+cena(subaru_xv, dva, benzin, 25490).
+cena(subaru_xv, styri, benzin, 27490).
+
+cena(volkswagen_passat, dva, benzin, 26740).
+cena(volkswagen_passat, dva, diesel, 25830).
+cena(volkswagen_passat, styri, diesel, 33320).
+
+cena(volkswagem_golf, dva, benzin, 15190).
+cena(volkswagem_golf, dva, diesel, 14850).
+cena(volkswagem_golf, styri, diesel, 21560).
+
+cena(toyta_auris, dva, benzin, 15690).
+cena(toyta_auris, dva, diesel, 16950).
+cena(toyta_auris, dva, hybrid, 19810).
+cena(toyta_auris, styri, hybrid, 24500).
+
+cena(toyota_yaris, dva, benzin, 10690).
+cena(toyota_yaris, dva, diesel, 11950).
+cena(toyota_yaris, dva, hybrid, 14810).
+cena(toyota_yaris, styri, hybrid, 19500).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% automat(ZNACKA_ID, PRIPLATOK).
+% priplatok za automaticku prevodovku pre danu znacku
+
+automat(bmw, 2500).
+automat(dacia, 1200).
+automat(ford, 2200).
+automat(kia, 1500).
+automat(suzuki, 1600).
+automat(skoda, 1750).
+automat(subaru, 1650).
+automat(volkswagen, 2150).
+automat(toyta, 1680).
+
+
+%find(M) :- auto(X, M), automat(Z, P), auto_znacka(X, Z), cena(X, dva, benzin, C), 12000 <= (C+P), 26000 >= (C+P), auto_kategoria(X, suv), auto_palivo(X, benzin), auto_nahon(X, dva).
+
+%find(M) :- auto(X, M), cena(X, dva, benzin, C), 12000 <= C, 18000 >= C, auto_kategoria(X, sedan_combi), auto_palivo(X, benzin), auto_nahon(X, dva).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,17 @@
+T__0=1
+T__1=2
+T__2=3
+T__3=4
+T__4=5
+T__5=6
+NL=7
+SMALL_ID=8
+NUMBER=9
+STRING=10
+WS=11
+'SATISFIABLE'=1
+'UNSATISFIABLE'=2
+'-'=3
+'('=4
+')'=5
+','=6

@@ -25,14 +25,14 @@ public class ClingoTest {
     public void tearDown() {
     }
 
-    @Test
-    public void testEmptyProgram() throws Exception {
-        String p = "a :- b. b :- a.";
-		ClingoSolver s = new ClingoSolver();
-		String out = s.run(p, 0);
-		
-		assertNotNull(out);
-        assertFalse(out.isEmpty());
-    }	
+//    @Test
+//    public void testEmptyProgram() throws Exception {
+//        String p = "a :- b. b :- a.";
+//		ClingoSolver s = new ClingoSolver();
+//		String out = s.run(p, 0);
+//
+//		assertNotNull(out);
+//        assertFalse(out.isEmpty());
+//    }
 	
 }

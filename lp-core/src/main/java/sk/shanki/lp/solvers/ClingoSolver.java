@@ -55,7 +55,7 @@ public class ClingoSolver implements Solver {
     }
 
     public String run(String program, int maxAnswerSets) throws IOException {
-        Process p = Runtime.getRuntime().exec("/opt/local/bin/clingo --verbose=0 " + maxAnswerSets);
+        Process p = Runtime.getRuntime().exec("C:\\bin/clingo --verbose=0 " + maxAnswerSets);
         try (BufferedWriter w = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()))) {
             w.append(program);
         }
