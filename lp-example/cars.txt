@@ -361,25 +361,9 @@ automat(volkswagen, 2150).
 automat(toyta, 1680).
 
 
-%find(M) :- auto(X, M), automat(Z, P), auto_znacka(X, Z), cena(X, dva, benzin, C), 12000 <= (C+P), 26000 >= (C+P), auto_kategoria(X, suv), auto_palivo(X, benzin), auto_nahon(X, dva).
+find_automat(M, N, N1, (C+P)) :- auto(X, M), palivo_(PAL), palivo(PAL, N1), nahon_(NAH), nahon(NAH, N), automat(Z, P), auto_znacka(X, Z), cena(X, NAH, PAL, C), cena_od(CO), CO <= (C+P), cena_do(CD), CD >= (C+P), kategoria_(KAT), auto_kategoria(X, KAT).
 
-%find(M) :- auto(X, M), cena(X, dva, benzin, C), 12000 <= C, 18000 >= C, auto_kategoria(X, sedan_combi), auto_palivo(X, benzin), auto_nahon(X, dva).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+find(M, N, N1, (C)) :- auto(X, M), nahon_(NAH), palivo_(PAL), palivo(PAL, N1), nahon(NAH, N), cena(X, NAH, PAL, C), cena_od(CO), CO <= C, cena_do(CD), CD >= C, kategoria_(KAT), auto_kategoria(X, KAT).
 
 
 
