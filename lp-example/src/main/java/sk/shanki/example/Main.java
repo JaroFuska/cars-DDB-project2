@@ -21,6 +21,10 @@ import javax.swing.*;
  */
 public class Main {
 
+    private static final ArrayList<String> vsetky_kat = new ArrayList<>(Arrays.asList("suv", "crossover", "sedan_combi", "hatchback"));
+    private static final ArrayList<String> vsetky_paliva = new ArrayList<>(Arrays.asList("benzin", "diesel", "hybrid"));
+    private static final ArrayList<String> vsetky_nahony = new ArrayList<>(Arrays.asList("dva", "styri"));
+
     private static class Config {
         public String pohon = "_";
         public String nahon = "_";
@@ -32,11 +36,6 @@ public class Main {
         public ArrayList<String> znacky = new ArrayList<>();
         public ArrayList<String> paliva = new ArrayList<>();
         public ArrayList<String> nahony = new ArrayList<>();
-    }
-
-    private static String find(String palivo, String nahon, String kategoria, int from, int to, boolean automat) {
-        return (!automat ? String.format("find(M, N, N1, (C)) :- auto(X, M), palivo(%s, N1), nahon(%s, N), cena(X, %s, %s, C), %d <= C, %d >= C, auto_kategoria(X, %s).", palivo, nahon, nahon, palivo, from, to, kategoria, palivo, nahon) :
-                String.format("find(M, N, N1, (C+P)) :- auto(X, M), palivo(%s, N1), nahon(%s, N), automat(Z, P), auto_znacka(X, Z), cena(X, %s, %s, C), %d <= (C+P), %d >= (C+P), auto_kategoria(X, %s).", palivo, nahon, nahon, palivo, from, to, kategoria, palivo, nahon));
     }
 
     private static void createAndShowGUI() {
@@ -96,7 +95,7 @@ public class Main {
                 final Config config = new Config();
                 switch (driveStyle.getSelectedIndex()) {
                     case 0:
-                        config.pohon = "P1";
+                        config.pohon = "_";
                         break;
                     case 1:
                         config.pohon = "hybrid";
@@ -105,19 +104,19 @@ public class Main {
                         config.pohon = "hybrid/benzin";
                         break;
                     case 3:
-                        config.pohon = "P1";
+                        config.pohon = "_";
                         break;
                     case 4:
                         config.pohon = "diesel";
                         break;
                     default:
-                        config.pohon = "P1";
+                        config.pohon = "_";
                         break;
                 }
 
                 switch (driveRoad.getSelectedIndex()) {
                     case 0:
-                        config.nahon = "NA";
+                        config.nahon = "_";
                         break;
                     case 1:
                         config.nahon = "dva";
@@ -132,7 +131,7 @@ public class Main {
                         config.nahon = "styri";
                         break;
                     default:
-                        config.nahon = "NA";
+                        config.nahon = "_";
                         break;
                 }
 
@@ -169,11 +168,10 @@ public class Main {
                 try {
                     config.price_from = (priceFrom.getText().equals("") ? 0 : Integer.parseInt(priceFrom.getText()));
                 } catch (NumberFormatException ex) {
-//                TODO - vypis ze zadal nie cislo
                     errors.setText("Nezadal si korektne cislo v poli 'Cena od:'");
                 }
                 try {
-                    config.price_to = (priceTo.getText().equals("") ? 99999 : Integer.parseInt(priceTo.getText()));
+                    config.price_to = (priceTo.getText().equals("") ? 999999 : Integer.parseInt(priceTo.getText()));
                 } catch (NumberFormatException ex) {
                     errors.setText("Nezadal si korektne cislo v poli 'Cena do:'");
                 }
@@ -210,20 +208,29 @@ public class Main {
                 }
                 ClingoSolver solver = new ClingoSolver();
 
-                for (String palivo : config.paliva) {
-                    for (String nahon : config.nahony) {
-                        for (String kategoria : config.kategorie) {
-                            program.append("\n" + find(palivo, nahon, kategoria, config.price_from, config.price_to, automat.isSelected()));
-//                            System.out.println(find(palivo, nahon, kategoria, config.price_from, config.price_to));
-                        }
-                    }
+                program.append(String.format("\ncena_od(%d).", config.price_from));
+                program.append(String.format("\ncena_do(%d).", config.price_to));
+
+                ArrayList<String> al = (config.paliva.toString().equals("[_]") ? vsetky_paliva : config.paliva);
+                for (String palivo : al) {
+                    program.append(String.format("\npalivo_(%s).", palivo));
                 }
+                al = (config.nahony.toString().equals("[_]") ? vsetky_nahony : config.nahony);
+                for (String nahon : al) {
+                    program.append(String.format("\nnahon_(%s).", nahon));
+                }
+                al = (config.kategorie.toString().equals("[_]") ? vsetky_kat : config.kategorie);
+                for (String kategoria : al) {
+                    program.append(String.format("\nkategoria_(%s).", kategoria));
+                }
+
 
                 AnswerSet as = solver.evaluateRaw(program.toString(), 0).first();
 
                 String res = "";
                 for (Literal literal : as) {
-                    if (literal.isOfSymbol("find")) {
+                    String lit = (automat.isSelected() ? "find_automat" : "find");
+                    if (literal.isOfSymbol(lit)) {
                         Atom a = (Atom) literal;
                         String atomText = (a.getTerm(0) + "" + a.getTerm(1) + a.getTerm(2) + " v cene od " + a.getTerm(3)).replaceAll("\"", "");
                         res += atomText + "\n";
@@ -233,15 +240,12 @@ public class Main {
                 res = res.equals("") ? "Pre vami vybrane kriteria sa nenaslo ziadne vhodne vozidlo" : res;
 
 
-//                results.setBounds(730, 50, 450, 500);
                 results.setText(res);
                 results.setEditable(false);
                 JScrollPane scroll = new JScrollPane(results);
                 JOptionPane.showMessageDialog(null, scroll);
-//                frame.getContentPane().add(results);
             }
         });
-
 
 
         driveStylesLabel.setBounds(10, 50, 300, 30);
