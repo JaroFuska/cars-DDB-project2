@@ -1,5 +1,3 @@
-
-
 % auto(ID, NAZOV)
 %   - info o aute
 
@@ -360,10 +358,78 @@ automat(subaru, 1650).
 automat(volkswagen, 2150).
 automat(toyta, 1680).
 
+vybrane_paliva(P,N) :- vybrane_palivo(0), palivo(P,N).
 
-find_automat(M, N, N1, (C+P)) :- auto(X, M), palivo_(PAL), palivo(PAL, N1), nahon_(NAH), nahon(NAH, N), automat(Z, P), auto_znacka(X, Z), cena(X, NAH, PAL, C), cena_od(CO), CO <= (C+P), cena_do(CD), CD >= (C+P), kategoria_(KAT), auto_kategoria(X, KAT).
+% rozhodovanie na zaklade parametra "vybrane_palivo" ktory sa nastavuje v GUI a posiela z Javy
+auta_s_vybranym_palivom(X,N) :- auto_palivo(X,P), vybrane_palivo(0), palivo(P,N).
+auta_s_vybranym_palivom(X,N) :- auto_palivo(X,hybrid), vybrane_palivo(1), palivo(hybrid,N).
+auta_s_vybranym_palivom(X,N) :- auto_palivo(X,hybrid), vybrane_palivo(2), palivo(hybrid,N).
+auta_s_vybranym_palivom(X,N) :- auto_palivo(X,benzin), vybrane_palivo(2), palivo(benzin,N).
+auta_s_vybranym_palivom(X,N) :- auto_palivo(X,P), vybrane_palivo(3), palivo(P,N).
+auta_s_vybranym_palivom(X,N) :- auto_palivo(X,diesel), vybrane_palivo(4), palivo(diesel,N).
 
-find(M, N, N1, (C)) :- auto(X, M), nahon_(NAH), palivo_(PAL), palivo(PAL, N1), nahon(NAH, N), cena(X, NAH, PAL, C), cena_od(CO), CO <= C, cena_do(CD), CD >= C, kategoria_(KAT), auto_kategoria(X, KAT).
+
+% rozhodovanie na zaklade parametra "vybrany_nahon" ktory sa nastavuje v GUI a posiela z Javy
+auta_s_vybranym_nahonom(X,N) :- auto_nahon(X,NA), vybrany_nahon(0), nahon(NA,N).
+auta_s_vybranym_nahonom(X,N) :- auto_nahon(X,dva), vybrany_nahon(1), nahon(dva,N).
+auta_s_vybranym_nahonom(X,N) :- auto_nahon(X,dva), vybrany_nahon(2), nahon(dva,N).
+auta_s_vybranym_nahonom(X,N) :- auto_nahon(X,styri), vybrany_nahon(2), nahon(styri,N).
+auta_s_vybranym_nahonom(X,N) :- auto_nahon(X,styri), vybrany_nahon(3), nahon(styri,N).
+auta_s_vybranym_nahonom(X,N) :- auto_nahon(X,styri), vybrany_nahon(4), nahon(styri,N).
+
+
+% rozhodovanie na zaklade parametra "vybrana_kategoria1" ktory sa nastavuje v GUI a posiela z Javy
+auta_s_vybranou_kategoriou1(X) :- auto_kategoria(X,_), vybrana_kategoria1(0).
+auta_s_vybranou_kategoriou1(X) :- auto_kategoria(X,sedan_combi), vybrana_kategoria1(1).
+auta_s_vybranou_kategoriou1(X) :- auto_kategoria(X,hatchback), vybrana_kategoria1(1).
+auta_s_vybranou_kategoriou1(X) :- auto_kategoria(X,suv), vybrana_kategoria1(2).
+auta_s_vybranou_kategoriou1(X) :- auto_kategoria(X,crossover), vybrana_kategoria1(2).
+
+
+% rozhodovanie na zaklade parametra "vybrana_kategoria2" ktory sa nastavuje v GUI a posiela z Javy
+auta_s_vybranou_kategoriou2(X) :- auto_kategoria(X,_), vybrana_kategoria1(0).
+auta_s_vybranou_kategoriou2(X) :- auto_kategoria(X,crossover), vybrana_kategoria1(1).
+auta_s_vybranou_kategoriou2(X) :- auto_kategoria(X,hatchback), vybrana_kategoria1(1).
+auta_s_vybranou_kategoriou2(X) :- auto_kategoria(X,suv), vybrana_kategoria1(2).
+auta_s_vybranou_kategoriou2(X) :- auto_kategoria(X,sedan_combi), vybrana_kategoria1(2).
+auta_s_vybranou_kategoriou2(X) :- auto_kategoria(X,crossover), vybrana_kategoria1(2).
+
+
+% prienik aut s vybranymi kategoriami
+auta_s_vybranou_kategoriou(X) :- auta_s_vybranou_kategoriou1(X), auta_s_vybranou_kategoriou2(X).
+
+
+% auta v cenovom rozmedzi medzi parametrami "cena_od" a "cena_do" ktore sa nastavuju v GUI a posielaju z Javy
+auta_s_konfiguraciou_s_vybranou_cenou(X,C) :- cena_od(CO), CO <= C, cena_do(CD), CD >= C, cena(X,_,_,C).
+auta_s_konfiguraciou_s_vybranou_cenou_automat(X,(C+P)) :- cena_od(CO), CO <= (C+P), cena_do(CD), CD >= (C+P), cena(X,_,_,C), priplatok_za_automat(X,P).
+
+
+% hodnota priplatku (P) za auto (X) podla znacky daneho auta
+priplatok_za_automat(X,P) :- automat(Z,P), auto_znacka(X,Z).
+
+% auta vyhovujuce danym parametrom
+find_automat(M, N, N1, C) :- auta_s_vybranym_palivom(X,N1), auta_s_vybranym_nahonom(X,N), auta_s_vybranou_cenou_automat(X,C), auta_s_vybranou_kategoriou(X), auto(X,M).
+find(M, N, N1, C) :- auta_s_vybranym_palivom(X,N1), auta_s_vybranym_nahonom(X,N), auta_s_vybranou_cenou(X,C), auta_s_vybranou_kategoriou(X), auto(X,M).
+
+%find_automat(M, N, N1, (C+P)) :- auto(X, M), palivo_(PAL), palivo(PAL, N1), nahon_(NAH), nahon(NAH, N), automat(Z, P), auto_znacka(X, Z), cena(X, NAH, PAL, C), cena_od(CO), CO <= (C+P), cena_do(CD), CD >= (C+P), kategoria_(KAT), auto_kategoria(X, KAT).
+
+
+%find(M, N, N1, (C)) :- auto(X, M), nahon_(NAH), palivo_(PAL), palivo(PAL, N1), nahon(NAH, N), cena(X, NAH, PAL, C), cena_od(CO), CO <= C, cena_do(CD), CD >= C, kategoria_(KAT), auto_kategoria(X, KAT).
+
+
+
+vybrane_palivo(1).
+
+
+vybrany_nahon(2).
+
+vybrana_kategoria1(1).
+
+vybrana_kategoria2(1).
+
+cena_od(50).
+cena_do(99999).
+
 
 
 
