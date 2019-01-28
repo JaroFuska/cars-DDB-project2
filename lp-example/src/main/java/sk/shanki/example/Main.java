@@ -21,23 +21,6 @@ import javax.swing.*;
  */
 public class Main {
 
-    private static final ArrayList<String> vsetky_kat = new ArrayList<>(Arrays.asList("suv", "crossover", "sedan_combi", "hatchback"));
-    private static final ArrayList<String> vsetky_paliva = new ArrayList<>(Arrays.asList("benzin", "diesel", "hybrid"));
-    private static final ArrayList<String> vsetky_nahony = new ArrayList<>(Arrays.asList("dva", "styri"));
-
-    private static class Config {
-        public String pohon = "_";
-        public String nahon = "_";
-        public String kategoria;
-        public String kategoria2;
-        public int price_from;
-        public int price_to;
-        public ArrayList<String> kategorie = new ArrayList<>();
-        public ArrayList<String> znacky = new ArrayList<>();
-        public ArrayList<String> paliva = new ArrayList<>();
-        public ArrayList<String> nahony = new ArrayList<>();
-    }
-
     private static void createAndShowGUI() {
         JFrame.setDefaultLookAndFeelDecorated(true);
 
@@ -92,113 +75,18 @@ public class Main {
         findCar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                final Config config = new Config();
-                switch (driveStyle.getSelectedIndex()) {
-                    case 0:
-                        config.pohon = "_";
-                        break;
-                    case 1:
-                        config.pohon = "hybrid";
-                        break;
-                    case 2:
-                        config.pohon = "hybrid/benzin";
-                        break;
-                    case 3:
-                        config.pohon = "_";
-                        break;
-                    case 4:
-                        config.pohon = "diesel";
-                        break;
-                    default:
-                        config.pohon = "_";
-                        break;
-                }
-
-                switch (driveRoad.getSelectedIndex()) {
-                    case 0:
-                        config.nahon = "_";
-                        break;
-                    case 1:
-                        config.nahon = "dva";
-                        break;
-                    case 2:
-                        config.nahon = "dva/styri";
-                        break;
-                    case 3:
-                        config.nahon = "styri";
-                        break;
-                    case 4:
-                        config.nahon = "styri";
-                        break;
-                    default:
-                        config.nahon = "_";
-                        break;
-                }
-
-                switch (sitting.getSelectedIndex()) {
-                    case 0:
-                        config.kategoria = "_";
-                        break;
-                    case 1:
-                        config.kategoria = "sedan_combi/hatchback";
-                        break;
-                    case 2:
-                        config.kategoria = "suv/crossover";
-                        break;
-                    default:
-                        config.kategoria = "_";
-                        break;
-                }
-
-                switch (family.getSelectedIndex()) {
-                    case 0:
-                        config.kategoria2 = "_";
-                        break;
-                    case 1:
-                        config.kategoria2 = "crossover/hatchback";
-                        break;
-                    case 2:
-                        config.kategoria2 = "suv/sedan_combi/crossover";
-                        break;
-                    default:
-                        config.kategoria2 = "_";
-                        break;
-                }
-
+                int prFrom = 0;
+                int prTo = 999999;
                 try {
-                    config.price_from = (priceFrom.getText().equals("") ? 0 : Integer.parseInt(priceFrom.getText()));
+                    prFrom = (priceFrom.getText().equals("") ? 0 : Integer.parseInt(priceFrom.getText()));
                 } catch (NumberFormatException ex) {
                     errors.setText("Nezadal si korektne cislo v poli 'Cena od:'");
                 }
                 try {
-                    config.price_to = (priceTo.getText().equals("") ? 999999 : Integer.parseInt(priceTo.getText()));
+                    prTo = (priceTo.getText().equals("") ? 999999 : Integer.parseInt(priceTo.getText()));
                 } catch (NumberFormatException ex) {
                     errors.setText("Nezadal si korektne cislo v poli 'Cena do:'");
                 }
-                ArrayList<String> kat = new ArrayList<>();
-                if (config.kategoria != null && !config.kategoria.equals("_")) {
-                    kat.addAll(Arrays.asList(config.kategoria.split("/")));
-                }
-                if (config.kategoria2 != null && !config.kategoria2.equals("_")) {
-                    if (kat.size() == 0) {
-                        config.kategorie.addAll(Arrays.asList(config.kategoria2.split("/")));
-                    } else {
-                        for (String s : config.kategoria2.split("/")) {
-                            if (kat.contains(s)) {
-                                config.kategorie.add(s);
-                            }
-                        }
-                    }
-                } else {
-                    if (kat.size() != 0) {
-                        config.kategorie = kat;
-                    }
-                }
-                if (config.kategorie.size() == 0) {
-                    config.kategorie.add("_");
-                }
-                config.paliva.addAll(Arrays.asList(config.pohon.split("/")));
-                config.nahony.addAll(Arrays.asList(config.nahon.split("/")));
 
                 StringBuilder program = null;
                 try {
@@ -208,22 +96,13 @@ public class Main {
                 }
                 ClingoSolver solver = new ClingoSolver();
 
-                program.append(String.format("\ncena_od(%d).", config.price_from));
-                program.append(String.format("\ncena_do(%d).", config.price_to));
+                program.append(String.format("\ncena_od(%d).", prFrom));
+                program.append(String.format("\ncena_do(%d).", prTo));
 
-                ArrayList<String> al = (config.paliva.toString().equals("[_]") ? vsetky_paliva : config.paliva);
-                for (String palivo : al) {
-                    program.append(String.format("\npalivo_(%s).", palivo));
-                }
-                al = (config.nahony.toString().equals("[_]") ? vsetky_nahony : config.nahony);
-                for (String nahon : al) {
-                    program.append(String.format("\nnahon_(%s).", nahon));
-                }
-                al = (config.kategorie.toString().equals("[_]") ? vsetky_kat : config.kategorie);
-                for (String kategoria : al) {
-                    program.append(String.format("\nkategoria_(%s).", kategoria));
-                }
-
+                program.append(String.format("vybrane_palivo(%d).", driveStyle.getSelectedIndex()));
+                program.append(String.format("vybrany_nahon(%d).", driveRoad.getSelectedIndex()));
+                program.append(String.format("vybrana_kategoria1(%d).", sitting.getSelectedIndex()));
+                program.append(String.format("vybrana_kategoria2(%d).", family.getSelectedIndex()));
 
                 AnswerSet as = solver.evaluateRaw(program.toString(), 0).first();
 
@@ -294,18 +173,6 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-//		StringBuilder program = new StringBuilder(Files.lines(Paths.get("C:\\Users\\jarof\\Documents\\01-Projects\\DDB\\lp-project\\lp\\lp-example\\cars.txt")).collect(Collectors.joining(System.lineSeparator())));
-//		ClingoSolver solver = new ClingoSolver();
-//
-//		AnswerSet as = solver.evaluateRaw(program.toString(), 0).first();
-//
-//		for (Literal literal : as) {
-//			if (literal.isOfSymbol("find")) {
-//				Atom a = (Atom) literal;
-//				System.out.println(a.getTerm(0));
-//			}
-//		}
-
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
